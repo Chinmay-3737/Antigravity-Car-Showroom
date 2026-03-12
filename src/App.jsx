@@ -1,36 +1,39 @@
 import React, { useState } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Categories from './components/Categories';
-import FeaturedCars from './components/FeaturedCars';
-import Services from './components/Services';
-import Gallery from './components/Gallery';
-import Testimonials from './components/Testimonials';
-import Footer from './components/Footer';
-import SplashPage from './components/SplashPage';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import BrandLoader from './components/BrandLoader';
+import MotorsHome from './pages/MotorsHome';
+import AtelierHome from './pages/AtelierHome';
+import StudioDetail from './pages/StudioDetail';
+import ServiceDetail from './pages/ServiceDetail';
 
-function App() {
+const AppContent = () => {
   const [showSplash, setShowSplash] = useState(true);
+  const location = useLocation();
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-gold-500/30 font-sans antialiased overflow-x-hidden">
-      {showSplash ? (
-        <SplashPage onComplete={() => setShowSplash(false)} />
-      ) : (
-        <>
-          <Navbar />
-          <main>
-            <Hero />
-            <Categories />
-            <FeaturedCars />
-            <Services />
-            <Gallery />
-            <Testimonials />
-          </main>
-          <Footer />
-        </>
-      )}
+      <AnimatePresence mode="wait">
+        {showSplash ? (
+          <BrandLoader key="loader" onComplete={() => setShowSplash(false)} />
+        ) : (
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<MotorsHome />} />
+            <Route path="/atelier" element={<AtelierHome />} />
+            <Route path="/studio/:id" element={<StudioDetail />} />
+            <Route path="/service/:id" element={<ServiceDetail />} />
+          </Routes>
+        )}
+      </AnimatePresence>
     </div>
+  );
+};
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }
 

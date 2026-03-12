@@ -99,7 +99,7 @@ const Footer = () => {
 
                 {/* Legal */}
                 <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 tracking-wider">
-                    <p>&copy; {new Date().getFullYear()} VYRONEX MOTORS. ALL RIGHTS RESERVED.</p>
+                    <p>&copy; {new Date().getFullYear()} VYRONEX CUSTOM. ALL RIGHTS RESERVED.</p>
                     <div className="flex space-x-6 mt-4 md:mt-0">
                         <a href="#" className="hover:text-white transition-colors uppercase">Privacy Policy</a>
                         <a href="#" className="hover:text-white transition-colors uppercase">Terms of Service</a>
