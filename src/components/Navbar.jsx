@@ -18,7 +18,9 @@ const Navbar = () => {
 
     const navLinks = [
         { name: 'HOME', path: '/' },
+        { name: 'CAR SALES', path: '/#collection' },
         { name: 'CUSTOMIZATION STUDIO', path: '/atelier' },
+        { name: 'CONTACT', path: '/contact' },
     ];
 
     const isActive = (path) => location.pathname === path;
@@ -57,13 +59,6 @@ const Navbar = () => {
                                     {link.name}
                                 </Link>
                             ))}
-                            {/* Contact Link */}
-                            <a
-                                href="#contact"
-                                className="text-[0.8rem] md:text-sm uppercase tracking-[0.15em] font-medium text-gray-300 transition-all duration-300 pb-1 border-b-2 border-transparent hover:text-red-600 hover:border-red-600"
-                            >
-                                CONTACT
-                            </a>
                         </div>
 
                         {/* Mobile Menu Button */}
@@ -104,13 +99,6 @@ const Navbar = () => {
                                 {link.name}
                             </Link>
                         ))}
-                        <a
-                            href="#contact"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                            className="text-2xl uppercase tracking-[0.2em] font-medium text-gray-400 hover:text-red-600 transition-colors duration-300"
-                        >
-                            CONTACT
-                        </a>
                     </motion.div>
                 )}
             </AnimatePresence>

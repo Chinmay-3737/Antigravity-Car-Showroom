@@ -22,6 +22,12 @@ import gwagonback from '../assets/g wagonback.jpg';
 import rangetop from '../assets/rangetop.png';
 import rangeleft from '../assets/rangeleft.png';
 import rangeright from '../assets/rangeright.jpg';
+import Lxtop from '../assets/Lxtop.png';
+import LxLeft from '../assets/LxLeft.png';
+import LXR from '../assets/LXR.png';
+import DefenderTop from '../assets/DEFENDERTOP.png';
+import DefenderLeft from '../assets/DEFENDERLEFT.png';
+import DefenderRight from '../assets/DEFENDERRIGHT.png';
 
 const serviceData = {
     "tuning": {
@@ -94,9 +100,9 @@ const serviceData = {
         mainImage: lexusImg,
         icon: PaintBucket,
         gallery: [
-            "https://images.unsplash.com/photo-1611566176212-076166e5c942?auto=format&fit=crop&q=80&w=800",
-            "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=800",
-            "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=800"
+            Lxtop,
+            LxLeft,
+            LXR
         ],
         specs: [
             { label: "Layers", value: "7 Stage Paint" },
@@ -110,9 +116,9 @@ const serviceData = {
         mainImage: defenderImg,
         icon: Wrench,
         gallery: [
-            "https://images.unsplash.com/photo-1530046339160-ce3e5b087ea2?auto=format&fit=crop&q=80&w=800",
-            "https://images.unsplash.com/photo-1487754180451-c456f719c141?auto=format&fit=crop&q=80&w=800",
-            "https://images.unsplash.com/photo-1517524204709-440d4303b41d?auto=format&fit=crop&q=80&w=800"
+            DefenderTop,
+            DefenderLeft,
+            DefenderRight
         ],
         specs: [
             { label: "Service", value: "White-Glove" },
