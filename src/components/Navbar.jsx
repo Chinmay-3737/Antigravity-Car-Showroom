@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const location = useLocation();
+
+    // Scroll Progress Logic
+    const { scrollYProgress } = useScroll();
+    const scaleX = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
 
     useEffect(() => {
         const handleScroll = () => {
@@ -19,7 +27,7 @@ const Navbar = () => {
     const navLinks = [
         { name: 'HOME', path: '/' },
         { name: 'CUSTOMIZATION STUDIO', path: '/atelier' },
-        { name: 'THE COLLECTION', path: '/collection' },
+        { name: 'SIGNATURE ALLOYS', path: '/collection' },
         { name: 'CONTACT', path: '/contact' },
     ];
 
@@ -34,6 +42,14 @@ const Navbar = () => {
                 className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/95 backdrop-blur-md shadow-lg py-4 border-b border-white/5' : 'bg-transparent py-6'
                     }`}
             >
+                {/* Top Scroll Progress Bar */}
+                <motion.div
+                    className="absolute top-0 left-0 right-0 h-[2px] bg-red-600 origin-left z-[60]"
+                    style={{ 
+                        scaleX,
+                        boxShadow: '0 0 10px rgba(220, 38, 38, 0.8)'
+                    }}
+                />
                 <div className="max-w-[1600px] mx-auto px-6 md:px-12">
                     <div className="flex justify-between items-center">
 

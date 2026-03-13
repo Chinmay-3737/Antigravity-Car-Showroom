@@ -67,7 +67,7 @@ const AtelierHero = () => {
                     className="text-5xl md:text-7xl lg:text-8xl font-serif text-white mb-8 leading-tight tracking-wide"
                 >
                     VYRONEX <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 via-white to-gray-400 italic font-light drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400 font-black drop-shadow-[0_0_15px_rgba(220,38,38,0.3)]">
                         ATELIER
                     </span>
                 </motion.h1>

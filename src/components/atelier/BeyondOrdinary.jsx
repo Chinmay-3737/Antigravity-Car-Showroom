@@ -35,7 +35,7 @@ const BeyondOrdinary = () => {
                         </h2>
                         <h2 className="text-5xl md:text-7xl font-sans font-black tracking-wide leading-none text-transparent mb-6"
                             style={{ WebkitTextStroke: '1px #444' }}>
-                            <span className="italic">ORDINARY</span>
+                            <span>ORDINARY</span>
                         </h2>
 
                         <p className="text-gray-400 text-lg max-w-sm mt-8">

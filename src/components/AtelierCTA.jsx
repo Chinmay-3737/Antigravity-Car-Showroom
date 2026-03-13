@@ -35,8 +35,8 @@ const AtelierCTA = () => {
                         Exclusive Customization
                     </div>
 
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6">
-                        Customize Your Vehicle at <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500 font-light italic">Vyronex Atelier</span>
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 uppercase tracking-tight">
+                        Customize Your Vehicle at <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">Vyronex Atelier</span>
                     </h2>
 
                     <p className="text-gray-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-light leading-relaxed">

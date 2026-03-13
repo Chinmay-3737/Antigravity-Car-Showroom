@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import BrandLoader from './components/BrandLoader';
+import SplashPage from './components/SplashPage';
 import MotorsHome from './pages/MotorsHome';
 import AtelierHome from './pages/AtelierHome';
 import StudioDetail from './pages/StudioDetail';
@@ -17,7 +17,7 @@ const AppContent = () => {
     <div className="min-h-screen bg-black text-white selection:bg-gold-500/30 font-sans antialiased overflow-x-hidden">
       <AnimatePresence mode="wait">
         {showSplash ? (
-          <BrandLoader key="loader" onComplete={() => setShowSplash(false)} />
+          <SplashPage key="loader" onComplete={() => setShowSplash(false)} />
         ) : (
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<MotorsHome />} />

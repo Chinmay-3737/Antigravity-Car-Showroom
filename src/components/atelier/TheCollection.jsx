@@ -81,33 +81,50 @@ const TheCollection = () => {
     return (
         <section id="collection" className="bg-[#050505] text-white">
             
-            {/* LUXURY INTRO HERO (SS 2 EFFECT) */}
-            <div className="relative h-[80vh] flex items-center overflow-hidden border-b border-white/5">
-                <div 
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80 scale-100"
+            {/* PROFESSIONAL FULL-WIDTH HERO (H-SCREEN) */}
+            <div className="relative h-screen flex items-center justify-center overflow-hidden">
+                <motion.div 
+                    initial={{ scale: 1.1 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 10, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{ backgroundImage: `url(${alloysBg})` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent" />
                 
-                <div className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-12 w-full">
+                {/* Cinematic Overlays */}
+                <div className="absolute inset-0 bg-black/40" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-black/60" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent opacity-50" />
+                
+                <div className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-12 w-full text-center">
                     <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, ease: "easeOut" }}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1.2, ease: "easeOut" }}
                     >
-                        <h2 className="text-5xl md:text-7xl lg:text-8xl font-sans font-black tracking-tighter uppercase leading-[0.9]">
-                            VYRONEX <span className="text-red-600">MOTORS</span>
+                        <h2 className="text-6xl md:text-8xl lg:text-9xl font-sans font-black tracking-tighter uppercase leading-[0.85] drop-shadow-2xl">
+                            VYRONEX <span className="text-red-600">CUSTOM</span>
                         </h2>
-                        <div className="flex items-center mt-4 space-x-4">
-                            <div className="h-px w-12 bg-red-600" />
-                            <p className="text-gray-400 text-sm md:text-base font-medium tracking-[0.5em] uppercase">
+                        <div className="flex items-center justify-center mt-8 space-x-6">
+                            <div className="h-px w-16 bg-red-600/50" />
+                            <p className="text-gray-300 text-sm md:text-lg font-bold tracking-[0.6em] uppercase">
                                 THE ART OF BESPOKE
                             </p>
+                            <div className="h-px w-16 bg-red-600/50" />
                         </div>
                     </motion.div>
                 </div>
+
+                {/* SCROLL INDICATOR */}
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 2, duration: 1 }}
+                    className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center"
+                >
+                    <span className="text-[10px] text-gray-400 font-black tracking-[0.4em] uppercase mb-4 opacity-50">SCROLL TO EXPLORE</span>
+                    <div className="w-px h-16 bg-gradient-to-b from-red-600 to-transparent animate-pulse" />
+                </motion.div>
             </div>
 
             {/* ALLOY GRID SECTION (SS 3 & 4 EFFECT) */}
@@ -130,7 +147,7 @@ const TheCollection = () => {
                         transition={{ duration: 0.8 }}
                         className="text-4xl md:text-5xl lg:text-7xl font-sans font-extrabold tracking-tight uppercase"
                     >
-                        Complete <span className="text-red-600">Alloy Collection</span>
+                        Complete <span className="text-red-600">SIGNATURE ALLOYS</span>
                     </motion.h3>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}

@@ -47,7 +47,7 @@ const Hero = () => {
                     className="mb-10 inline-block border border-red-500/50 bg-black/60 backdrop-blur-md px-4 py-1 shadow-[0_0_15px_rgba(239,68,68,0.3)]"
                 >
                     <span className="text-red-500 uppercase tracking-[0.3em] text-xs font-bold">
-                        Signature by Vyronex Motor
+                        Signature by Vyronex Custom
                     </span>
                 </motion.div>
 

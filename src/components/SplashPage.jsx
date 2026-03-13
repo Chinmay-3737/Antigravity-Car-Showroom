@@ -3,18 +3,32 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const SplashPage = ({ onComplete }) => {
     const [stage, setStage] = useState(0);
+    const [count, setCount] = useState(0);
 
     useEffect(() => {
-        // Stage 1: Lines animate in
+        // High-speed percentage counter logic
+        if (stage >= 1 && count < 100) {
+            const timer = setInterval(() => {
+                setCount(prev => {
+                    const next = prev + Math.floor(Math.random() * 5) + 2;
+                    return next > 100 ? 100 : next;
+                });
+            }, 50);
+            return () => clearInterval(timer);
+        }
+    }, [stage, count]);
+
+    useEffect(() => {
+        // Stage 1: Bars & Counter start
         const t1 = setTimeout(() => setStage(1), 300);
-        // Stage 2: Glow & Text reveals
-        const t2 = setTimeout(() => setStage(2), 1200);
-        // Stage 3: Hold the completed state
-        const t3 = setTimeout(() => setStage(3), 3500);
-        // Stage 4: Fade out everything
-        const t4 = setTimeout(() => setStage(4), 4200);
-        // Stage 5: Unmount component
-        const t5 = setTimeout(() => onComplete(), 5000);
+        // Stage 2: Glow & Text reveals with Red Sweep
+        const t2 = setTimeout(() => setStage(2), 1000);
+        // Stage 3: Hold
+        const t3 = setTimeout(() => setStage(3), 4000);
+        // Stage 4: Fade out
+        const t4 = setTimeout(() => setStage(4), 4800);
+        // Stage 5: Unmount
+        const t5 = setTimeout(() => onComplete(), 5600);
 
         return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); clearTimeout(t5); }
     }, [onComplete]);
@@ -22,230 +36,176 @@ const SplashPage = ({ onComplete }) => {
     return (
         <AnimatePresence>
             <motion.div
-                className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#1a1111] overflow-hidden"
+                className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black overflow-hidden pointer-events-none"
                 initial={{ opacity: 1 }}
                 animate={stage >= 4 ? { opacity: 0 } : { opacity: 1 }}
-                transition={{ duration: 0.8, ease: 'easeInOut' }}
+                transition={{ duration: 1, ease: 'easeInOut' }}
             >
-                {/* Radial gradient background to simulate a very dark red room */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#3a1a1a]/40 via-[#1a1111] to-[#110a0a]" />
+                {/* 1. Cinematic Background Layers */}
+                <div className="absolute inset-0 bg-black" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#4a0000_0%,_transparent_80%)] opacity-30" />
+                
+                {/* Red Scanline Effect */}
+                <div className="absolute inset-0 pointer-events-none z-50 opacity-[0.05]"
+                    style={{
+                        backgroundImage: 'linear-gradient(rgba(255, 0, 0, 0.1) 50%, transparent 50%)',
+                        backgroundSize: '100% 4px'
+                    }}
+                />
 
-                <div className="relative z-10 flex items-center justify-center w-full max-w-5xl mx-auto px-4 group">
+                {/* Background Red Particles */}
+                <div className="absolute inset-0 z-0">
+                    {[...Array(20)].map((_, i) => (
+                        <motion.div
+                            key={i}
+                            className="absolute w-1 h-1 bg-red-600 rounded-full"
+                            style={{
+                                top: `${Math.random() * 100}%`,
+                                left: `${Math.random() * 100}%`,
+                            }}
+                            animate={{
+                                y: [-20, 20, -20],
+                                opacity: [0.1, 0.3, 0.1],
+                                scale: [1, 1.5, 1]
+                            }}
+                            transition={{
+                                duration: 3 + Math.random() * 5,
+                                repeat: Infinity,
+                                ease: "linear"
+                            }}
+                        />
+                    ))}
+                </div>
 
-                    {/* Dark Red glowing pill behind the text */}
+                {/* 2. Intense Red Atmosphere Glow */}
+                <div className="absolute inset-0 flex items-center justify-center">
                     <motion.div
-                        className="absolute w-[300px] md:w-[600px] h-[100px] md:h-[150px] bg-red-900/30 rounded-full blur-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={stage >= 2 ? { opacity: 1, scale: 1 } : {}}
-                        transition={{ duration: 2, ease: "easeOut" }}
+                        className="absolute w-full h-full max-w-5xl bg-red-900/5 rounded-full blur-[150px]"
+                        animate={stage >= 2 ? {
+                            scale: [1, 1.2, 1],
+                            opacity: [0.1, 0.2, 0.1],
+                        } : { scale: 0.8, opacity: 0 }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                     />
+                </div>
 
-                    {/* Floating Engine Components (Abstract V8/V12 elements) */}
+                <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-7xl mx-auto px-4">
+                    
+                    {/* Top Row: Metallic Bars & Counter */}
+                    <div className="flex items-center justify-center w-full mb-12">
+                        {/* LEFT BARS */}
+                        <div className="flex flex-col items-end space-y-4 mr-12 md:mr-20">
+                            <motion.div
+                                className="h-[2px] rounded-full overflow-hidden relative"
+                                initial={{ width: 0, opacity: 0 }}
+                                animate={stage >= 1 ? { width: "80px", opacity: 1 } : { width: 0, opacity: 0 }}
+                                transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                <div className="absolute inset-0 bg-red-900 shadow-[0_0_10px_rgba(220,38,38,0.3)]" />
+                                <motion.div 
+                                    className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-50"
+                                    animate={{ x: ['-100%', '200%'] }}
+                                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                                />
+                            </motion.div>
+                        </div>
 
-                    {/* Mid Left - Turbine / Fan */}
-                    <motion.div
-                        className="absolute top-[45%] left-[25%] md:left-[35%] text-gray-500/50 pointer-events-none"
-                        initial={{ opacity: 0, rotate: -90, scale: 0.8 }}
-                        animate={stage >= 2 ? { opacity: 0.6, rotate: 0, scale: 1.2 } : {}}
-                        transition={{ duration: 3, ease: "easeOut" }}
-                    >
-                        <motion.div animate={{ rotate: 360 }} transition={{ duration: 40, repeat: Infinity, ease: "linear" }}>
-                            <svg width="150" height="150" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                {/* Outer Ring */}
-                                <circle cx="50" cy="50" r="45" />
-                                {/* Inner Hub Ring */}
-                                <circle cx="50" cy="50" r="15" />
-                                {/* Center Axle */}
-                                <circle cx="50" cy="50" r="5" fill="currentColor" />
-
-                                {/* Turbine Blades */}
-                                {/* Blade 1 */}
-                                <path d="M50 35 V5" />
-                                {/* Blade 2 */}
-                                <path d="M50 65 V95" />
-                                {/* Blade 3 */}
-                                <path d="M35 50 H5" />
-                                {/* Blade 4 */}
-                                <path d="M65 50 H95" />
-
-                                {/* Diagonal Blades */}
-                                <path d="M39 39 L18 18" />
-                                <path d="M61 61 L82 82" />
-                                <path d="M39 61 L18 82" />
-                                <path d="M61 39 L82 18" />
-
-                                {/* Segment Details */}
-                                <path d="M45 5 H55" />
-                                <path d="M45 95 H55" />
-                                <path d="M5 45 V55" />
-                                <path d="M95 45 V55" />
-                            </svg>
+                        {/* PERCENTAGE COUNTER */}
+                        <motion.div 
+                            className="flex flex-col items-center justify-center"
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={stage >= 1 ? { opacity: 1, scale: 1 } : {}}
+                        >
+                            <span className="text-4xl md:text-6xl font-mono font-black text-red-600 tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(220,38,38,0.5)]">
+                                {count}<span className="text-xl md:text-2xl text-red-900/50 pl-1">%</span>
+                            </span>
+                            <span className="text-[0.5rem] tracking-[0.6em] text-red-900 uppercase mt-2 font-black">System Ready</span>
                         </motion.div>
-                    </motion.div>
 
-                    {/* Top Right - Large Piston */}
-                    <motion.div
-                        className="absolute top-[20%] right-[20%] md:right-[30%] text-red-500/40 pointer-events-none"
-                        initial={{ opacity: 0, rotate: 0, scale: 0.8, x: 50, y: -20 }}
-                        animate={stage >= 2 ? { opacity: 0.7, rotate: 15, scale: 1.5, x: 0, y: 0 } : {}}
-                        transition={{ duration: 3.5, ease: "easeOut", delay: 0.3 }}
-                    >
-                        <motion.div animate={{ y: [0, -15, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
-                            <svg width="120" height="150" viewBox="0 0 100 120" fill="none" stroke="currentColor" strokeWidth="2">
-                                {/* Piston Head */}
-                                <rect x="20" y="10" width="60" height="25" rx="2" />
-                                {/* Piston Rings */}
-                                <line x1="20" y1="18" x2="80" y2="18" strokeWidth="1.5" />
-                                <line x1="20" y1="26" x2="80" y2="26" strokeWidth="1.5" />
-
-                                {/* Connecting Rod */}
-                                <path d="M40 35 L30 80" />
-                                <path d="M60 35 L70 80" />
-
-                                {/* Wrist Pin Housing */}
-                                <rect x="35" y="32" width="30" height="8" rx="1" fill="currentColor" />
-
-                                {/* Crankshaft End Ring */}
-                                <circle cx="50" cy="88" r="16" />
-                                {/* Crank Center Hole */}
-                                <circle cx="50" cy="88" r="6" />
-                            </svg>
-                        </motion.div>
-                    </motion.div>
-
-                    {/* --- ADDED ENGINE COMPONENTS --- */}
-
-                    {/* Bottom Left - Engine Valve */}
-                    <motion.div
-                        className="absolute bottom-[25%] left-[10%] md:left-[20%] text-white/20 pointer-events-none"
-                        initial={{ opacity: 0, scale: 0.5, y: 30 }}
-                        animate={stage >= 2 ? { opacity: 0.4, scale: 0.9, y: 0 } : {}}
-                        transition={{ duration: 3, ease: "easeOut", delay: 0.4 }}
-                    >
-                        <motion.div animate={{ y: [-10, 10, -10] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>
-                            <svg width="80" height="120" viewBox="0 0 60 100" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                {/* Valve Stem */}
-                                <line x1="30" y1="10" x2="30" y2="70" />
-                                {/* Valve Head */}
-                                <path d="M10 90 L30 70 L50 90 Z" />
-                                {/* Valve Spring Lines */}
-                                <path d="M20 20 H40 M20 30 H40 M20 40 H40 M20 50 H40 M20 60 H40" strokeDasharray="2 2" />
-                            </svg>
-                        </motion.div>
-                    </motion.div>
-
-                    {/* Top Center-Right - Spark Plug */}
-                    <motion.div
-                        className="absolute top-[10%] right-[35%] md:right-[45%] text-red-500/20 pointer-events-none hidden md:block"
-                        initial={{ opacity: 0, rotate: -30, scale: 0.5 }}
-                        animate={stage >= 2 ? { opacity: 0.5, rotate: -15, scale: 0.8 } : {}}
-                        transition={{ duration: 3.5, ease: "easeOut", delay: 0.6 }}
-                    >
-                        <motion.div animate={{ y: [5, -5, 5], rotate: [0, 5, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>
-                            <svg width="60" height="100" viewBox="0 0 40 80" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                {/* Terminal */}
-                                <rect x="15" y="5" width="10" height="10" rx="2" />
-                                {/* Ceramic Insulator */}
-                                <path d="M12 15 H28 L25 40 H15 Z" />
-                                {/* Hex Nut Area */}
-                                <rect x="12" y="40" width="16" height="15" />
-                                {/* Threaded Body */}
-                                <path d="M16 55 H24 M16 60 H24 M16 65 H24" />
-                                {/* Ground Electrode */}
-                                <path d="M20 70 V75 H16" strokeWidth="2" />
-                            </svg>
-                        </motion.div>
-                    </motion.div>
-
-                    {/* Bottom Right - Interlocking Gears */}
-                    <motion.div
-                        className="absolute bottom-[10%] right-[5%] md:right-[15%] text-gray-500/30 pointer-events-none"
-                        initial={{ opacity: 0, scale: 0.5, rotate: 45 }}
-                        animate={stage >= 2 ? { opacity: 0.5, scale: 1, rotate: 0 } : {}}
-                        transition={{ duration: 4, ease: "easeOut", delay: 0.5 }}
-                    >
-                        <motion.div animate={{ rotate: -360 }} transition={{ duration: 25, repeat: Infinity, ease: "linear" }}>
-                            <svg width="100" height="100" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                {/* Main Gear */}
-                                <circle cx="50" cy="50" r="30" strokeDasharray="10 5" strokeWidth="4" />
-                                <circle cx="50" cy="50" r="20" />
-                                <circle cx="50" cy="50" r="5" fill="currentColor" />
-                                {/* Cross Spokes */}
-                                <line x1="50" y1="20" x2="50" y2="80" />
-                                <line x1="20" y1="50" x2="80" y2="50" />
-                            </svg>
-                        </motion.div>
-                    </motion.div>
-
-                    {/* Top Left - Hanging Chain & Pulley (from reference image) */}
-                    <motion.div
-                        className="absolute top-0 left-[30%] md:left-[35%] text-gray-500/50 pointer-events-none origin-top"
-                        initial={{ opacity: 0, y: -50 }}
-                        animate={stage >= 2 ? { opacity: 0.6, y: 0 } : {}}
-                        transition={{ duration: 3, ease: "easeOut" }}
-                    >
-                        <motion.div animate={{ rotate: [-1, 1, -1] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", originY: 0 }}>
-                            <svg width="60" height="180" viewBox="0 0 40 180" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                {/* Vertical Chain Line */}
-                                <line x1="20" y1="0" x2="20" y2="120" strokeDasharray="4 4" />
-
-                                {/* Pulley/Hook Mechanism at the end */}
-                                <path d="M10 120 H30 L25 140 H15 Z" />
-                                <circle cx="20" cy="155" r="10" />
-                                <circle cx="20" cy="155" r="3" fill="currentColor" />
-                            </svg>
-                        </motion.div>
-                    </motion.div>
-
-                    {/* Left Animated Lines */}
-                    <div className="flex flex-col items-end space-y-1 md:space-y-2 mr-6 md:mr-10">
-                        <motion.div
-                            className="h-[1px] md:h-[2px] bg-white/80 origin-right rounded-full"
-                            initial={{ width: 0, opacity: 0 }}
-                            animate={stage >= 1 ? { width: "40px", opacity: 1 } : { width: 0, opacity: 0 }}
-                            transition={{ duration: 1.2, ease: "easeOut" }}
-                        />
-                        <motion.div
-                            className="h-[1px] md:h-[2px] bg-white/80 origin-right rounded-full"
-                            initial={{ width: 0, opacity: 0 }}
-                            animate={stage >= 1 ? { width: "80px", opacity: 1 } : { width: 0, opacity: 0 }}
-                            transition={{ duration: 1.4, ease: "easeOut", delay: 0.1 }}
-                        />
+                        {/* RIGHT BARS */}
+                        <div className="flex flex-col items-start space-y-4 ml-12 md:mr-20">
+                            <motion.div
+                                className="h-[2px] rounded-full overflow-hidden relative"
+                                initial={{ width: 0, opacity: 0 }}
+                                animate={stage >= 1 ? { width: "80px", opacity: 1 } : { width: 0, opacity: 0 }}
+                                transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                <div className="absolute inset-0 bg-red-900 shadow-[0_0_10px_rgba(220,38,38,0.3)]" />
+                                <motion.div 
+                                    className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-50"
+                                    animate={{ x: ['-100%', '200%'] }}
+                                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                                />
+                            </motion.div>
+                        </div>
                     </div>
 
-                    {/* Central Brand Text Container */}
+                    {/* 4. CENTRAL BRANDING WITH RED LIGHT SWEEP & FLARE */}
                     <motion.div
-                        className="flex flex-col items-center relative z-20"
-                        initial={{ opacity: 0, y: 10, filter: 'blur(5px)' }}
-                        animate={stage >= 2 ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+                        className="flex flex-col items-center relative"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={stage >= 2 ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 1.5, ease: "easeOut" }}
                     >
-                        <h1 className="text-3xl md:text-5xl font-serif font-light text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-red-500 uppercase tracking-[0.4em] md:tracking-[0.6em] pl-4 md:pl-6 drop-shadow-md">
-                            VYRONEX
-                        </h1>
-                        <p className="text-[0.45rem] md:text-[0.6rem] font-medium tracking-[0.4em] md:tracking-[0.8em] text-gray-400 uppercase mt-4 md:mt-6 opacity-70">
-                            Engineered for Dominance
-                        </p>
+                        <div className="relative overflow-hidden px-12 py-6">
+                            {/* Brand Name with Inner Red Glow */}
+                            <h1 className="text-5xl md:text-8xl font-sans font-black text-red-600 uppercase tracking-[0.4em] md:tracking-[0.6em] relative z-10 drop-shadow-[0_0_20px_rgba(220,38,38,0.4)]">
+                                VYRONEX
+                            </h1>
+                            
+                            {/* Intense Red Text Sweep (Elite) */}
+                            <motion.div 
+                                className="absolute top-0 bottom-0 w-64 bg-gradient-to-r from-transparent via-red-400 to-transparent skew-x-[-30deg] pointer-events-none z-20 mix-blend-screen"
+                                initial={{ x: '-200%' }}
+                                animate={stage >= 2 ? { x: '400%' } : {}}
+                                transition={{ duration: 2.2, ease: "easeInOut", delay: 1.2 }}
+                            />
+                            
+                            {/* Red Lens flare following the sweep */}
+                            <motion.div
+                                className="absolute top-1/2 -translate-y-1/2 w-8 h-full bg-red-400 blur-2xl pointer-events-none z-30 opacity-60"
+                                initial={{ x: '-200%' }}
+                                animate={stage >= 2 ? { x: ['-200%', '200%', '600%'] } : {}}
+                                transition={{ duration: 2.2, ease: "easeInOut", delay: 1.2 }}
+                            />
+                        </div>
+                        
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={stage >= 2 ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 1.2, delay: 0.5 }}
+                            className="flex flex-col items-center mt-8"
+                        >
+                            <p className="text-[0.6rem] md:text-[0.8rem] font-black tracking-[1em] text-red-500/80 uppercase mb-4 drop-shadow-[0_0_5px_rgba(220,38,38,0.3)]">
+                                Engineered for Dominance
+                            </p>
+                            <div className="h-[2px] w-32 bg-gradient-to-r from-transparent via-red-600 to-transparent shadow-[0_0_10px_rgba(220,38,38,0.5)]" />
+                        </motion.div>
                     </motion.div>
-
-                    {/* Right Animated Lines */}
-                    <div className="flex flex-col items-start space-y-1 md:space-y-2 ml-6 md:ml-10">
-                        <motion.div
-                            className="h-[1px] md:h-[2px] bg-white/80 origin-left rounded-full"
-                            initial={{ width: 0, opacity: 0 }}
-                            animate={stage >= 1 ? { width: "40px", opacity: 1 } : { width: 0, opacity: 0 }}
-                            transition={{ duration: 1.2, ease: "easeOut" }}
-                        />
-                        <motion.div
-                            className="h-[1px] md:h-[2px] bg-white/80 origin-left rounded-full"
-                            initial={{ width: 0, opacity: 0 }}
-                            animate={stage >= 1 ? { width: "80px", opacity: 1 } : { width: 0, opacity: 0 }}
-                            transition={{ duration: 1.4, ease: "easeOut", delay: 0.1 }}
-                        />
-                    </div>
                 </div>
+
+                {/* Lower Right Branding stamp (Red Theme) */}
+                <motion.div 
+                    className="absolute right-12 bottom-12 flex items-center space-x-6 h-12"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={stage >= 2 ? { opacity: 0.4, x: 0 } : {}}
+                    transition={{ delay: 2.5 }}
+                >
+                    <span className="text-[0.5rem] tracking-[0.8em] font-black text-red-900 uppercase">Est. 2025</span>
+                    <div className="w-px h-full bg-gradient-to-b from-transparent via-red-900 to-transparent" />
+                    <span className="text-[0.5rem] tracking-[0.8em] font-black text-red-900 uppercase">Custom Div</span>
+                </motion.div>
+
+                {/* Pure Red Atmosphere Pulse (Final Stage) */}
+                <motion.div
+                    className="absolute inset-0 bg-red-600/5 mix-blend-color-dodge z-40 pointer-events-none"
+                    animate={stage === 3 ? { opacity: [0, 0.1, 0] } : { opacity: 0 }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                />
+
             </motion.div>
         </AnimatePresence>
     );
 };
+
 export default SplashPage;

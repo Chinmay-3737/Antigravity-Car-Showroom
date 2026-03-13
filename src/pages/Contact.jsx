@@ -40,7 +40,7 @@ const Contact = () => {
         {
             icon: Mail,
             title: "Email",
-            content: ["INFO@VYRONEXMOTORS.COM", "CHINMAYCHAUDHARI312@GMAIL.COM"]
+            content: ["INFO@VYRONEXCUSTOM.COM", "CHINMAYCHAUDHARI312@GMAIL.COM"]
         },
         {
             icon: MapPin,
@@ -66,8 +66,8 @@ const Contact = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h1 className="text-6xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic">
-                            Get In <span className="text-red-600 non-italic">Touch</span>
+                        <h1 className="text-6xl md:text-8xl font-black mb-8 tracking-tighter">
+                            Get In <span className="text-red-600">Touch</span>
                         </h1>
                         <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
                             Have questions about our premium vehicles or customization services? We're here to help.
@@ -97,7 +97,7 @@ const Contact = () => {
                         allowFullScreen="" 
                         loading="lazy" 
                         referrerPolicy="no-referrer-when-downgrade"
-                        title="Vyronex Motors Location"
+                        title="Vyronex Custom Location"
                         className="grayscale opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-1000"
                     />
 
@@ -123,8 +123,8 @@ const Contact = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter uppercase italic">
-                                Ready to Experience <span className="text-red-600 non-italic">Luxury?</span>
+                            <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter">
+                                Ready to Experience <span className="text-red-600">Luxury?</span>
                             </h2>
                             <p className="text-gray-400 text-lg mb-12 max-w-xl mx-auto">
                                 Visit our showroom to explore our exclusive collection of premium vehicles.

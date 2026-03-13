@@ -11,7 +11,7 @@ const Collection = () => {
     return (
         <div className="bg-black min-h-screen text-white">
             <Navbar />
-            <main className="pt-20">
+            <main>
                 <TheCollection />
             </main>
             <Footer />
