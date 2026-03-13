@@ -98,11 +98,27 @@ const Footer = () => {
                 </div>
 
                 {/* Legal */}
-                <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 tracking-wider">
-                    <p>&copy; {new Date().getFullYear()} VYRONEX CUSTOM. ALL RIGHTS RESERVED.</p>
-                    <div className="flex space-x-6 mt-4 md:mt-0">
-                        <a href="#" className="hover:text-white transition-colors uppercase">Privacy Policy</a>
-                        <a href="#" className="hover:text-white transition-colors uppercase">Terms of Service</a>
+                <div className="pt-8 border-t border-white/10 flex flex-col items-center text-[10px] md:text-xs text-gray-500 tracking-widest font-medium">
+                    <p className="mb-4 text-center">
+                        &copy; 2025 VYRONEXMOTORS. ALL RIGHTS RESERVED. CRAFTED FOR LUXURY.
+                    </p>
+                    <div className="flex items-center space-x-2 text-gray-400">
+                        <span>MADE WITH</span>
+                        <motion.span
+                            animate={{
+                                scale: [1, 1.25, 1, 1.25, 1],
+                            }}
+                            transition={{
+                                duration: 1.5,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                times: [0, 0.1, 0.2, 0.3, 1]
+                            }}
+                            className="inline-block"
+                        >
+                            ❤️
+                        </motion.span>
+                        <span>BY CHINMAY CHAUDHARI</span>
                     </div>
                 </div>
             </div>

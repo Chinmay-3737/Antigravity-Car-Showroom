@@ -2,7 +2,6 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import BeyondOrdinary from '../components/atelier/BeyondOrdinary';
-import TheCollection from '../components/atelier/TheCollection';
 import MagicServices from '../components/atelier/MagicServices';
 import VisionExpertise from '../components/atelier/VisionExpertise';
 import Gallery from '../components/Gallery';
@@ -16,7 +15,6 @@ const MotorsHome = () => {
             <main>
                 <Hero />
                 <BeyondOrdinary />
-                <TheCollection />
                 <MagicServices />
                 <VisionExpertise />
                 <Gallery />

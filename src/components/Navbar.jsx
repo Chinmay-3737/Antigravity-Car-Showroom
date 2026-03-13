@@ -18,8 +18,8 @@ const Navbar = () => {
 
     const navLinks = [
         { name: 'HOME', path: '/' },
-        { name: 'CAR SALES', path: '/#collection' },
         { name: 'CUSTOMIZATION STUDIO', path: '/atelier' },
+        { name: 'THE COLLECTION', path: '/collection' },
         { name: 'CONTACT', path: '/contact' },
     ];
 

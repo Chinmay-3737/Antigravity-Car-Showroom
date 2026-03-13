@@ -6,6 +6,7 @@ import MotorsHome from './pages/MotorsHome';
 import AtelierHome from './pages/AtelierHome';
 import StudioDetail from './pages/StudioDetail';
 import ServiceDetail from './pages/ServiceDetail';
+import Collection from './pages/Collection';
 import Contact from './pages/Contact';
 
 const AppContent = () => {
@@ -23,6 +24,7 @@ const AppContent = () => {
             <Route path="/atelier" element={<AtelierHome />} />
             <Route path="/studio/:id" element={<StudioDetail />} />
             <Route path="/service/:id" element={<ServiceDetail />} />
+            <Route path="/collection" element={<Collection />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         )}
